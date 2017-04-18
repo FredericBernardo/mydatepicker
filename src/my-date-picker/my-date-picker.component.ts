@@ -4,12 +4,6 @@ import { IMyDate, IMyDateRange, IMyMonth, IMyCalendarDay, IMyWeek, IMyDayLabels,
 import { LocaleService } from "./services/my-date-picker.locale.service";
 import { UtilService } from "./services/my-date-picker.util.service";
 
-// webpack1_
-declare var require: any;
-const myDpStyles: string = require("./my-date-picker.component.css");
-const myDpTpl: string = require("./my-date-picker.component.html");
-// webpack2_
-
 export const MYDP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MyDatePicker),
@@ -23,10 +17,12 @@ enum KeyCode {enter = 13, space = 32}
 enum MonthId {prev = 1, curr = 2, next = 3}
 
 @Component({
+providers: [LocaleService, UtilService, MYDP_VALUE_ACCESSOR],
+encapsulation: ViewEncapsulation.None
     selector: "my-date-picker",
     exportAs: "mydatepicker",
-    styles: [myDpStyles],
-    template: myDpTpl,
+    styleUrls:['./my-date-picker.component.css'] ,
+    templateUrl: "./my-date-picker.component.html",
     providers: [LocaleService, UtilService, MYDP_VALUE_ACCESSOR],
     encapsulation: ViewEncapsulation.None
 })
